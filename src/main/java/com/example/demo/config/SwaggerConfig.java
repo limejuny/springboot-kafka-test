@@ -27,15 +27,15 @@ public class SwaggerConfig {
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.OAS_30)
-      .useDefaultResponseMessages(false)
-      .consumes(getConsumeContentTypes())
-      .produces(getProduceContentTypes())
-      .apiInfo(apiInfo())
-      .select()
-      .apis(RequestHandlerSelectors.basePackage("com.example.demo"))
-      .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-      .paths(PathSelectors.any())
-      .build();
+        .useDefaultResponseMessages(false)
+        .consumes(getConsumeContentTypes())
+        .produces(getProduceContentTypes())
+        .apiInfo(apiInfo())
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("com.example.demo"))
+        .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+        .paths(PathSelectors.any())
+        .build();
   }
 
   private Set<String> getConsumeContentTypes() {
@@ -52,10 +52,10 @@ public class SwaggerConfig {
 
   private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
-      .title("Kafka Demo")
-      .description("Kafka Pub/Sub Demo Project")
-      .version("1.0.0")
-      .build();
+        .title("Kafka Demo")
+        .description("Kafka Pub/Sub Demo Project")
+        .version("1.0.0")
+        .build();
   }
 
   @Bean
@@ -63,17 +63,20 @@ public class SwaggerConfig {
     return new BeanPostProcessor() {
 
       @Override
-      public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if (bean instanceof WebMvcRequestHandlerProvider ) {
+      public Object postProcessAfterInitialization(Object bean, String beanName)
+          throws BeansException {
+        if (bean instanceof WebMvcRequestHandlerProvider) {
           customizeSpringfoxHandlerMappings(getHandlerMappings(bean));
         }
         return bean;
       }
 
-      private <T extends RequestMappingInfoHandlerMapping> void customizeSpringfoxHandlerMappings(List<T> mappings) {
-        List<T> copy = mappings.stream()
-          .filter(mapping -> mapping.getPatternParser() == null)
-          .collect(Collectors.toList());
+      private <T extends RequestMappingInfoHandlerMapping> void customizeSpringfoxHandlerMappings(
+          List<T> mappings) {
+        List<T> copy =
+            mappings.stream()
+                .filter(mapping -> mapping.getPatternParser() == null)
+                .collect(Collectors.toList());
         mappings.clear();
         mappings.addAll(copy);
       }
