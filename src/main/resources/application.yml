@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+        format_sql: true
+        show_sql: true
+    hibernate:
+      ddl-auto: update
+  devtools:
+    restart:
+      exclude: build/**
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mariadb://${DB_HOSTNAME:127.0.0.1}:${DB_PORT:3306}/${DB_DATABASE:devdb}
+    username: ${DB_USER:user}
+    password: ${DB_PASSWORD:pass}
+
+---
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/localdb
+    username: user
+    password: pass
