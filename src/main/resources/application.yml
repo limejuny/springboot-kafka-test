@@ -27,7 +27,7 @@ logging:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mariadb://${DB_HOSTNAME:127.0.0.1}:${DB_PORT:3306}/${DB_DATABASE:devdb}
+    url: jdbc:mariadb://${DB_HOSTNAME:mariadb}:${DB_PORT:3306}/${DB_DATABASE:devdb}
     username: ${DB_USER:user}
     password: ${DB_PASSWORD:pass}
 

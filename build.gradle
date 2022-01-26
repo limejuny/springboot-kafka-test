@@ -19,6 +19,10 @@ repositories {
   mavenCentral()
 }
 
+bootJar {
+  mainClass = 'com.example.demo.DemoApplication'
+}
+
 spotless {
   java {
     googleJavaFormat()

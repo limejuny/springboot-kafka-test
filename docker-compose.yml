@@ -14,6 +14,18 @@ services:
       - MARIADB_PASSWORD=${MARIADB_PASSWORD:-pass}
       - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:-ssap}
       - MARIADB_DATABASE=${MARIADB_DATABASE:-devdb}
+  spring:
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-dev}
+    depends_on:
+      - mariadb
+
 
 volumes:
   mariadb.data:
