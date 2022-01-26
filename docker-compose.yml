@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  mariadb:
+    image: "mariadb"
+    ports:
+      - 3306:3306
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "mariadb.data:/var/lib/mysql"
+    environment:
+      - MARIADB_USER=${MARIADB_USER:-user}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD:-pass}
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:-ssap}
+      - MARIADB_DATABASE=${MARIADB_DATABASE:-devdb}
+
+volumes:
+  mariadb.data:
+    name: mariadb.data
+
+networks:
+  default:
+    name: demo.kafka
