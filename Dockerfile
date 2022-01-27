@@ -18,7 +18,7 @@ FROM openjdk:11-jre
 ENV ARTIFACT_NAME=demo-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
-COPY --from=builder $APP_HOME/build/libs/$ARTIFACT_NAME ./app.jar
+COPY --from=builder $APP_HOME/build/libs/$ARTIFACT_NAME .
 
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+CMD ["sh", "-c", "java -jar ${ARTIFACT_NAME}"]
