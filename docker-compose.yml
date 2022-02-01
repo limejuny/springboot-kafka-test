@@ -1,6 +1,28 @@
 version: "3"
 
 services:
+  zookeeper:
+    image: "wurstmeister/zookeeper"
+    ports:
+      - 2181:2181
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+  kafka:
+    image: "wurstmeister/kafka"
+    ports:
+      - 9092:9092
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+        # - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_CREATE_TOPICS: "kafka_topic:1:1" # topic_name:num_of_partition:num_of_replica
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    depends_on:
+      - zookeeper
   mariadb:
     image: "mariadb"
     ports:
